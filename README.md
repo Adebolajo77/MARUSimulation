@@ -34,11 +34,32 @@ cd marus-docker
 
 xhost +
 
-docker build -t marus_docker . --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
+## both private and public key files must be present 
+## you add your public key to your github repo 
+
+sudo docker build -t marus_docker . --build-arg ssh_prv_key="$(cat ~/.ssh/id_rsa)" --build-arg ssh_pub_key="$(cat ~/.ssh/id_rsa.pub)"
 
 
+docker run --rm -v /tmp/.X11-unix:/tmp/.X11-unix --gpus all --runtime nvidia -e DISPLAY=$DISPLAY --privileged -it marus_docker /bin/bash
 
 
+```
+## testing 
+
+```shell
+
+ros2 launch grpc_ros_adapter ros2_server_launch.py
+
+```
+
+
+```shell
+
+unityhub
+
+## login or sigup
+
+add marus_example project (/home/marus_user/marus_example).
 
 ```
 
